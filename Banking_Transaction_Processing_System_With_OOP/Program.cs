@@ -16,11 +16,13 @@ namespace Banking_Transaction_Processing_System_With_OOP
 
             do
             {
+                Console.WriteLine();
                 Console.WriteLine("----- Online_Course_Enrollment -----");
-                Console.WriteLine("1. Create Account ");
+                Console.WriteLine("1. Deposit ");
                 Console.WriteLine("2. Withdraw ");
                 Console.WriteLine("3. Exite");
                 Console.Write("Chose any number : ");
+
                 num = Convert.ToInt32(Console.ReadLine());
 
                 if (num > 0 && num < 3)
@@ -70,7 +72,7 @@ namespace Banking_Transaction_Processing_System_With_OOP
                                     bankCalculation = new Service.BusinessAccount(c);
                                 }
 
-                                if (AccType == c.getType().getAccountType() && accNum == c.getAccountNum())
+                                if (AccType == "Saving" && accNum == c.getAccountNum())
                                 {
                                     
                                     Console.Write("withdraw balance = ");
@@ -85,9 +87,10 @@ namespace Banking_Transaction_Processing_System_With_OOP
                                             Console.WriteLine();
                                             Console.WriteLine("Account Number = " + c.getAccountNum());
                                             Console.WriteLine("Account Type = " + c.getType().getAccountType());
-                                            Console.WriteLine("Main balance = " + c.getBalance());
+                                            //Console.WriteLine("Main balance = " + c.getBalance());
                                             Console.WriteLine("Update balance = " + c.updateBalance());
                                             Console.WriteLine("Withdraw = " + bankCalculation.calculation());
+                                            Console.WriteLine();
                                         }
                                         else
                                         {
@@ -100,6 +103,36 @@ namespace Banking_Transaction_Processing_System_With_OOP
                                         Console.WriteLine("Try again");
                                     }
 
+                                }
+                                if(AccType == "Business" && accNum == c.getAccountNum())
+                                {
+                                    Console.Write("withdraw balance = ");
+                                    double withdraw = Convert.ToDouble(Console.ReadLine());
+
+                                    if (c.getBalance() > 0)
+                                    {
+                                        if (c.getBalance() > withdraw && withdraw > 0)
+                                        {
+                                            c.setWithdraw(withdraw);
+                                            bankCalculation = new Service.BusinessAccount(c);
+                                            Console.WriteLine();
+                                            Console.WriteLine("Account Number = " + c.getAccountNum());
+                                            Console.WriteLine("Account Type = " + c.getType().getAccountType());
+                                            //Console.WriteLine("Main balance = " + c.getBalance());
+                                            Console.WriteLine("Update balance = " + c.updateBalance());
+                                            Console.WriteLine("Withdraw = " + bankCalculation.calculation());
+                                            Console.WriteLine();
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Try again");
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Try again");
+                                    }
                                 }
 
 
