@@ -52,11 +52,11 @@ namespace Banking_Transaction_Processing_System_With_OOP.Entities
             return _withdraw;
         }
 
-        public double updateBalance(double amount)
+        public void updateBalance(double amount)
         {
             _balance -= amount;
 
-            return _balance;
+            /*return _balance*/;
         }
 
     }

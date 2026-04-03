@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="bankAccount\BankAccount.cs" />
     <Compile Include="Entities\AccountType.cs" />
     <Compile Include="Entities\Customer.cs" />
     <Compile Include="Program.cs" />
