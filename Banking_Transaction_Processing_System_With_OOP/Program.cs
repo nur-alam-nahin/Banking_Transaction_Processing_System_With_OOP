@@ -25,7 +25,7 @@ namespace Banking_Transaction_Processing_System_With_OOP
 
                 num = Convert.ToInt32(Console.ReadLine());
 
-                if (num > 0 && num < 3)
+                if (num > 0 && num < 4)
                 {
                     switch (num)
                     {
@@ -33,8 +33,7 @@ namespace Banking_Transaction_Processing_System_With_OOP
                             Console.Write("Account Number = ");
                             int accountId  = Convert.ToInt32(Console.ReadLine());
 
-                            Console.Write("Diposite balance = ");
-                            double balance = Convert.ToDouble(Console.ReadLine());
+                            
 
                             Console.Write("Account type (Saving/Business) =  ");
                             string AcType = Console.ReadLine();
@@ -42,14 +41,35 @@ namespace Banking_Transaction_Processing_System_With_OOP
 
 
                             Entities.AccountType accountType = new Entities.AccountType(AcType);
-                            Entities.Customer cust = new Entities.Customer(accountId, balance, accountType);
+                            Entities.Customer cust = new Entities.Customer(accountId,0, accountType);
 
 
                             customers.Add(cust);
                             break;
 
-
                         case 2:
+
+                            Console.Write("Account type (Saving/Business) =  ");
+                            string AccoType = Console.ReadLine();
+
+                            Console.Write("Account Number = ");
+                            int acNum = Convert.ToInt32(Console.ReadLine());
+
+                            foreach(var c in customers)
+                            {
+                                if (AccoType == "Saving" && acNum == c.getAccountNum())
+                                {
+                                    Console.Write("Diposite balance = ");
+                                    double balance = Convert.ToDouble(Console.ReadLine());
+
+
+                                    c.setdeposit(balance);
+                                }
+                            }
+
+                            break;
+
+                        case 3:
 
 
                             Console.Write("Account type (Saving/Business) =  ");
@@ -62,35 +82,46 @@ namespace Banking_Transaction_Processing_System_With_OOP
                             foreach (var c in customers)
                             {
 
-                                Service.BankCalculation bankCalculation;
-                                if (c.getType().getAccountType() == "Live")
-                                {
-                                   
-                                }
-                                else
-                                {
-                                    bankCalculation = new Service.BusinessAccount(c);
-                                }
+                              
 
                                 if (AccType == "Saving" && accNum == c.getAccountNum())
                                 {
-                                    
                                     Console.Write("withdraw balance = ");
                                     double withdraw = Convert.ToDouble(Console.ReadLine());
 
+                                    c.setWithdraw(withdraw);
+
+                                    Service.BankCalculation bankCalculation;
+                                    if(c.getType().getAccountType() == "Saving")
+                                    {
+                                        bankCalculation = new Service.SavingAccount(c);
+                                    }
+                                    else
+                                    {
+                                        bankCalculation = new Service.BusinessAccount(c);
+                                    }
+
+
+                                    double finalAmount = bankCalculation.calculation();
+                                    c.updateBalance(finalAmount);
+
+
+
+                                    Console.WriteLine();
+                                    Console.WriteLine("Account Number = " + c.getAccountNum());
+                                    Console.WriteLine("Account Type = " + c.getType().getAccountType());
+                                    //Console.WriteLine("Main balance = " + c.getBalance());
+                                    Console.WriteLine("Update balance = " + finalAmount);
+                                    Console.WriteLine("Withdraw = " + bankCalculation.calculation());
+                                    Console.WriteLine();
+
+                                   
                                     if (c.getBalance() > 0)
                                     {
                                         if (c.getBalance() > withdraw &&  withdraw > 0 && 100000 >= withdraw)
                                         {
-                                            c.setWithdraw(withdraw);
-                                            bankCalculation = new Service.SavingAccount(c);
-                                            Console.WriteLine();
-                                            Console.WriteLine("Account Number = " + c.getAccountNum());
-                                            Console.WriteLine("Account Type = " + c.getType().getAccountType());
-                                            //Console.WriteLine("Main balance = " + c.getBalance());
-                                            Console.WriteLine("Update balance = " + c.updateBalance());
-                                            Console.WriteLine("Withdraw = " + bankCalculation.calculation());
-                                            Console.WriteLine();
+                                            
+                                            
                                         }
                                         else
                                         {
@@ -114,7 +145,7 @@ namespace Banking_Transaction_Processing_System_With_OOP
                                         if (c.getBalance() > withdraw && withdraw > 0)
                                         {
                                             c.setWithdraw(withdraw);
-                                            bankCalculation = new Service.BusinessAccount(c);
+                                           
                                             Console.WriteLine();
                                             Console.WriteLine("Account Number = " + c.getAccountNum());
                                             Console.WriteLine("Account Type = " + c.getType().getAccountType());
@@ -138,10 +169,21 @@ namespace Banking_Transaction_Processing_System_With_OOP
 
                             }
                             break;
+
+                        case 4:
+                            foreach(var c in customers)
+                            {
+                                Console.WriteLine("Account Number = " + c.getAccountNum());
+                                Console.WriteLine("Account Type = " + c.getType().getAccountType());
+                                Console.WriteLine("Main balance = " + c.getBalance());
+
+
+                            }
+                            break;
                     }
 
                 }
-            } while (num != 3);
+            } while (num != 5);
         }
     }
 }

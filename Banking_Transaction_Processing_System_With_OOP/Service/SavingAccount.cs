@@ -17,18 +17,18 @@ namespace Banking_Transaction_Processing_System_With_OOP.Service
 
         public override double calculation()
         {
-            if(_customer.getBalance() > 0)
-            {
-                if(_customer.getBalance() > _customer.getWithdraw() && 0 < _customer.getWithdraw() && 100000 <= _customer.getWithdraw())
-                {
+            //if(_customer.getBalance() > 0)
+            //{
+            //    if(_customer.getBalance() > _customer.getWithdraw() && 0 < _customer.getWithdraw() && 100000 <= _customer.getWithdraw())
+            //    {
                    
-                }
+            //    }
 
-            }
-            else
-            {
-                return 0;
-            }
+            //}
+            //else
+            //{
+            //    return 0;
+            //}
 
             double res =  _customer.getWithdraw();
             return res;

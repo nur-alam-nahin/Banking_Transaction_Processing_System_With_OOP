@@ -36,9 +36,15 @@ namespace Banking_Transaction_Processing_System_With_OOP.Entities
             return _accountType;
         }
 
-        public void setWithdraw(double withdraw)
+
+        public void setdeposit(double amount)
         {
-            _withdraw = withdraw;
+            _balance += amount;
+        }
+
+        public void setWithdraw(double amount)
+        {
+            _withdraw = amount;
         }
 
         public double getWithdraw()
@@ -46,9 +52,9 @@ namespace Banking_Transaction_Processing_System_With_OOP.Entities
             return _withdraw;
         }
 
-        public double updateBalance()
+        public double updateBalance(double amount)
         {
-            _balance = _balance - _withdraw;
+            _balance -= amount;
 
             return _balance;
         }
